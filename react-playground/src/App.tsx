@@ -8,10 +8,22 @@ import { lazy, Suspense } from 'react';
 import SuspenseTest from './components/suspense-test';
 import UserInfo from './components/user-info';
 import { LaggyInput } from './components/laggy-input';
+import { VirtualList } from './features/virtual-list/virtual-list';
+import { mockStringArray } from './features/virtual-list/__mock__';
+import { FileTree } from './features/file-tree/file-tree';
 
 export const SuspenseTestLazy = lazy(() => import('./components/suspense-test'));
 
 const fetchUsers = () => fetch('https://dummyjson.com/users').then(res => res.json());
+
+
+const paths = [
+  "/README.md",
+  "/src/App.js",
+  "/src/components/Button.js",
+  "/src/components/Input.js",
+  "/src/utils/helpers.js"
+];
 
 
 function App() {
@@ -22,6 +34,8 @@ function App() {
   console.log('APP', age);
   return (
     <>
+      <FileTree items={paths} />
+      <VirtualList items={mockStringArray} />
       <LaggyInput/>
       <NameInput />
       <UserBlock />
